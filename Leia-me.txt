@@ -1,0 +1,22 @@
+Leia-me!
+
+1. Atualizar o arquivo de "input" com as novas informações. Caminho: input/input.xlsx;
+
+2. Dar 2 cliques em "auto_forms.Rproj" > RStudio vai abrir automaticamente;
+
+3. Já o ambiente do RStudio, abrir o script "main.R";
+
+4. Executar o script: 'Ctrl + Alt + R.
+
+PS -----------------------------------------------------------------------
+
+Obs.: A coluna Q, 'Meio de Contato', do arquivo de input, deverá ser preenchida utilizando '/' como separador. Exemplo:
+(xx) xxxx-xxxx / (xx) xxxx-xxxx / Email: aaaa@uol.com.br / bbbb@ig.com.br / Site: www.aaaaabbbbb.com.br / ...
+
+Qualquer dúvida no preenchimento das colunas do arquivo de input, basta consultar o arquivo 'TEMPLATE.xlsx'. Esse arquivo demonstra como cada coluna deve ser preenchida.
+
+
+FIM ----------------------------------------------------------------------
+
+Os formulários gerados estarão na pasta "output".
+
