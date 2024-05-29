@@ -1,5 +1,3 @@
-# -*- coding: ansi -*-
-
 import streamlit as st
 import ui as ui
 import data_processing 
@@ -23,7 +21,7 @@ st.set_page_config(
 
 def main():
     pages = {
-        "Gerar formul·rios": ui.page_gera_forms
+        "Gerar formul√°rios": ui.page_gera_forms
     }
 
     with st.sidebar:
