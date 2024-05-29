@@ -1,3 +1,4 @@
+
 # Importando bibliotecas necessárias
 import os
 import io
@@ -19,7 +20,7 @@ def load_data(content_file=None):
         return content
 
 def zip_output_files(output_folder):
-    # Cria um objeto BytesIO para armazenar o arquivo ZIP em memória
+    # Cria um objeto BytesIO para armazenar o arquivo ZIP em mem�ria
     zip_buffer = BytesIO()
     
     # Cria o arquivo ZIP em memória

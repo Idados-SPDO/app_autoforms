@@ -1,9 +1,11 @@
+
 # Importando bibliotecas necessárias
 import os
 import pandas as pd
 import streamlit as st
 from io import BytesIO
 import data_processing as dp
+import tempfile
 
 def page_gera_forms():
     st.title("App para automatização de formulários de abertura e ampliação")
@@ -23,7 +25,7 @@ def page_gera_forms():
         exec(open('scr/code/02_forms_ampliacao.py').read())
 
         # Chama a função para compactar os arquivos e obter os dados ZIP
-        pasta_arquivo = os.path.join(os.getcwd(), "output")
+        pasta_arquivo = os.path.join(os.getcwd(), outputdir)
         zip_data = dp.zip_output_files(pasta_arquivo)
     
         # Disponibiliza o arquivo ZIP para download

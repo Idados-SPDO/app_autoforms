@@ -1,5 +1,3 @@
-# -*- coding: ansi -*-
-
 import streamlit as st
 import ui as ui
 import data_processing 
@@ -13,6 +11,7 @@ from openpyxl.styles.fills import PatternFill
 from openpyxl import Workbook
 from openpyxl import load_workbook
 import os
+import tempfile
 
 df_abertura = content
 
@@ -184,4 +183,8 @@ else:
 
             # Salvando o Workbook
             data = datetime.today().strftime("%d%m%Y")
-            wb_abertura.save(f"output/{data}_{solicitante} - Solicitação de Abertura Novos Informantes ({uf_escritorio}) - {job}.xlsx")
+
+            # Cria um diretório temporário
+            with tempfile.TemporaryDirectory() as output_dir:
+                # Caminho do arquivo temporário dentro do diretório temporário
+                wb_abertura.save(f"{output_dir}/{data}_{solicitante} - Solicitação de Abertura Novos Informantes ({uf_escritorio}) - {job}.xlsx")
