@@ -19,28 +19,28 @@ def form_abertura(content):
     # Arrumar nomes das colunas
     df_abertura.columns = df_abertura.columns.str.strip().str.lower().str.replace(' ', '_')
 
-    # Padronizando a escrita da coluna 'abertura/ampliaÁ„o'
-    df_abertura['abertura_/_ampliaÁ„o'] = df_abertura['abertura_/_ampliaÁ„o'].str.upper()
+    # Padronizando a escrita da coluna 'abertura/amplia√ß√£o'
+    df_abertura['abertura_/_amplia√ß√£o'] = df_abertura['abertura_/_amplia√ß√£o'].str.upper()
 
-    # Filtrando a ˙ltima data e o tipo de formul·rio
-    df_filtrado_abertura = df_abertura[df_abertura['abertura_/_ampliaÁ„o'] == 'ABERTURA']
+    # Filtrando a √∫ltima data e o tipo de formul√°rio
+    df_filtrado_abertura = df_abertura[df_abertura['abertura_/_amplia√ß√£o'] == 'ABERTURA']
     latest_date = df_filtrado_abertura['data_do_mapeamento'].max()
     df_filtrado_abertura = df_filtrado_abertura[df_filtrado_abertura['data_do_mapeamento'] == latest_date]
 
-    # Removendo o DataFrame original para liberar memÛria
+    # Removendo o DataFrame original para liberar mem√≥ria
     del df_abertura
 
     if df_filtrado_abertura.empty:
-        print("\nN„o h· solicitaÁ„o de abertura.")
+        print("\nN√£o h√° solicita√ß√£o de abertura.")
     else:
-        solicitantes = df_filtrado_abertura['coletor_escritÛrio_(respons·vel)'].unique()
+        solicitantes = df_filtrado_abertura['coletor_escrit√≥rio_(respons√°vel)'].unique()
     
         for solicitante in solicitantes:
-            filtro_solicitante = df_filtrado_abertura[df_filtrado_abertura['coletor_escritÛrio_(respons·vel)'] == solicitante]
-            ufs_escritorio = filtro_solicitante['uf_do_escritÛrio'].unique()
+            filtro_solicitante = df_filtrado_abertura[df_filtrado_abertura['coletor_escrit√≥rio_(respons√°vel)'] == solicitante]
+            ufs_escritorio = filtro_solicitante['uf_do_escrit√≥rio'].unique()
         
             for uf_escritorio in ufs_escritorio:
-                filtro_uf = filtro_solicitante[filtro_solicitante['uf_do_escritÛrio'] == uf_escritorio]
+                filtro_uf = filtro_solicitante[filtro_solicitante['uf_do_escrit√≥rio'] == uf_escritorio]
                 jobs = filtro_uf['job'].unique()
             
                 for job in jobs:
@@ -60,7 +60,7 @@ def form_abertura(content):
                         meio_contato_aux = re.split(r" / |/", meio_contato)
                         meio_contato_aux = [contato.strip() for contato in meio_contato_aux]
     
-                        # Inicializando listas tempor·rias para cada tipo de contato
+                        # Inicializando listas tempor√°rias para cada tipo de contato
                         telefone_temp = []
                         email_temp = []
                         site_temp = []
@@ -69,23 +69,23 @@ def form_abertura(content):
     
                         # Separando os contatos
                         for contato in meio_contato_aux:
-                            # Verificando se È um telefone
+                            # Verificando se √© um telefone
                             if re.match(r"\(\d{2}\)\s?\d{4,5}-?\d{4}", contato):
                                 telefone_temp.append(contato)
-                            # Verificando se È um email
+                            # Verificando se √© um email
                             elif "@" in contato:
                                 email_temp.append(contato)
-                            # Verificando se È um site
+                            # Verificando se √© um site
                             elif re.search(r"https|\.com|\.br", contato):
                                 site_temp.append(contato)
-                            # Verificando se È um endereÁo
-                            elif re.search(r"[Ee]ndereÁo:", contato):
-                                endereco_temp.append(re.sub(r"[Ee]ndereÁo:", "", contato).strip())
-                            # Caso contr·rio, È tratado como observaÁ„o
+                            # Verificando se √© um endere√ßo
+                            elif re.search(r"[Ee]ndere√ßo:", contato):
+                                endereco_temp.append(re.sub(r"[Ee]ndere√ßo:", "", contato).strip())
+                            # Caso contr√°rio, √© tratado como observa√ß√£o
                             else:
                                 observacao_temp.append(contato)
     
-                        # Convertendo listas tempor·rias em strings separadas por "/"
+                        # Convertendo listas tempor√°rias em strings separadas por "/"
                         telefone_final.append(" / ".join(telefone_temp) if telefone_temp else "-")
                         email_final.append(" / ".join(email_temp) if email_temp else "-")
                         site_final.append(" / ".join(site_temp) if site_temp else "-")
@@ -94,33 +94,33 @@ def form_abertura(content):
 
                 # Definindo a tabela
                 tabela_abertura = form[['analista_pesquisador_(solicitante)',
-                                        'coletor_escritÛrio_(respons·vel)',
+                                        'coletor_escrit√≥rio_(respons√°vel)',
                                         'data_do_retorno',
-                                        'uf_do_escritÛrio',
+                                        'uf_do_escrit√≥rio',
                                         'job',
                                         'status_do_item',
                                         'elementar',
                                         'item',
                                         'periodicidade',
-                                        'uf_do_preÁo',
+                                        'uf_do_pre√ßo',
                                         'empresa',
                                         'cnpj']].copy()
 
-                tabela_abertura['Data da solicitaÁ„o'] = form['data_do_mapeamento'].dt.strftime("%d/%m/%Y")
-                tabela_abertura['DescriÁ„o comercial'] = form['descriÁ„o_a_ser_pesquisada']
-                tabela_abertura['EndereÁo'] = end_final
+                tabela_abertura['Data da solicita√ß√£o'] = form['data_do_mapeamento'].dt.strftime("%d/%m/%Y")
+                tabela_abertura['Descri√ß√£o comercial'] = form['descri√ß√£o_a_ser_pesquisada']
+                tabela_abertura['Endere√ßo'] = end_final
                 tabela_abertura['Telefone'] = telefone_final
                 tabela_abertura['site'] = site_final
                 tabela_abertura['Email'] = email_final
-                tabela_abertura['cÛd. do Formul·rio de retorno'] = '-'
-                tabela_abertura['ObservaÁ„o pesquisador'] = observacao_final
+                tabela_abertura['c√≥d. do Formul√°rio de retorno'] = '-'
+                tabela_abertura['Observa√ß√£o pesquisador'] = observacao_final
 
                 # Reordenando as colunas
-                tabela_abertura = tabela_abertura[['analista_pesquisador_(solicitante)', 'coletor_escritÛrio_(respons·vel)', 'Data da solicitaÁ„o', 'data_do_retorno', 'uf_do_escritÛrio',
-                                                'job', 'status_do_item', 'elementar', 'item', 'DescriÁ„o comercial',
-                                                'periodicidade', 'uf_do_preÁo', 'empresa', 'cnpj',
-                                                'EndereÁo', 'Telefone', 'site', 'Email', 'cÛd. do Formul·rio de retorno',
-                                                'ObservaÁ„o pesquisador']]
+                tabela_abertura = tabela_abertura[['analista_pesquisador_(solicitante)', 'coletor_escrit√≥rio_(respons√°vel)', 'Data da solicita√ß√£o', 'data_do_retorno', 'uf_do_escrit√≥rio',
+                                                'job', 'status_do_item', 'elementar', 'item', 'Descri√ß√£o comercial',
+                                                'periodicidade', 'uf_do_pre√ßo', 'empresa', 'cnpj',
+                                                'Endere√ßo', 'Telefone', 'site', 'Email', 'c√≥d. do Formul√°rio de retorno',
+                                                'Observa√ß√£o pesquisador']]
             
                 tabela_abertura.reset_index(drop=True, inplace=True)
 
@@ -133,12 +133,12 @@ def form_abertura(content):
                         planilha.cell(row=start_row + r, column=c, value=value)
 
                 # Escrevendo dados da tabela
-                #tabela_abertura.to_excel(wb_abertura, sheet_name="SolicitaÁ„o de novos Inform.", index=False, startrow=5, startcol=0)
+                #tabela_abertura.to_excel(wb_abertura, sheet_name="Solicita√ß√£o de novos Inform.", index=False, startrow=5, startcol=0)
 
                 initRow = 6
                 endRow = initRow + len(tabela_abertura) - 1
 
-                # Definindo estilos de formataÁ„o
+                # Definindo estilos de formata√ß√£o
                 font_body = Font(name='Calibri', size=8)
                 alignment_body = Alignment(horizontal='center', vertical='center', wrap_text=False)
                 border_body = Border(left=Side(style='thin'), right=Side(style='thin'), top=Side(style='thin'), bottom=Side(style='thin'))
@@ -149,7 +149,7 @@ def form_abertura(content):
                 border_item = Border(left=Side(style='thin'), right=Side(style='thin'), top=Side(style='thin'), bottom=Side(style='thin'))
                 fill_item = PatternFill(start_color='FFFFFFFF', end_color='FFFFFFFF', fill_type='solid')
 
-                # Adicionando estilos ‡s cÈlulas
+                # Adicionando estilos √†s c√©lulas
                 for row in range(initRow, endRow+1):
                     for col in range(1, 21):
                         cell = planilha.cell(row=row, column=col)
@@ -185,9 +185,9 @@ def form_abertura(content):
                 # Salvando o Workbook
                 data = datetime.today().strftime("%d%m%Y")
 
-                # Cria um diretÛrio tempor·rio
+                # Cria um diret√≥rio tempor√°rio
                 with tempfile.TemporaryDirectory() as output_dir:
-                    # Caminho do arquivo tempor·rio dentro do diretÛrio tempor·rio
-                    wb_abertura.save(f"{output_dir}/{data}_{solicitante} - SolicitaÁ„o de Abertura Novos Informantes ({uf_escritorio}) - {job}.xlsx")
+                    # Caminho do arquivo tempor√°rio dentro do diret√≥rio tempor√°rio
+                    wb_abertura.save(f"{output_dir}/{data}_{solicitante} - Solicita√ß√£o de Abertura Novos Informantes ({uf_escritorio}) - {job}.xlsx")
 
     return st.write("Aberturas finalizadas!")
