@@ -6,6 +6,8 @@ import streamlit as st
 from io import BytesIO
 import data_processing as dp
 import tempfile
+import forms_abertura as abert
+import forms_ampliacao as ampli
 
 def page_gera_forms():
     st.title("App para automatização de formulários de abertura e ampliação")
@@ -21,8 +23,8 @@ def page_gera_forms():
     st.markdown('---')
     if st.button('Gerar formulários'):
         content = dp.load_data(st.session_state.content_file)
-        exec(open('scr/code/01_forms_abertura.py').read())
-        exec(open('scr/code/02_forms_ampliacao.py').read())
+        abert.form_abertura(content)
+        ampli.form_ampliacao(content)
 
         # Chama a função para compactar os arquivos e obter os dados ZIP
         pasta_arquivo = os.path.join(os.getcwd(), outputdir)
