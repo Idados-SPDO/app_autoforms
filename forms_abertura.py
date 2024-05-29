@@ -185,7 +185,7 @@ def form_abertura(content):
                 # Salvando o Workbook
                 data = datetime.today().strftime("%d%m%Y")
 
-                aux_dir = dp.output_dir()
+                aux_dir = dp.temp_paste()
 
                 wb_abertura.save(f"{aux_dir}/{data}_{solicitante} - Solicitação de Abertura Novos Informantes ({uf_escritorio}) - {job}.xlsx")
 
