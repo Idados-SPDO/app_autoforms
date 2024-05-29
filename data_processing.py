@@ -44,7 +44,4 @@ def baixar_modelo(df, arquivo):
     return st.download_button(label="Baixar Modelo de Input", data=buffer, file_name=f"{arquivo}.xlsx")
 
 def temp_paste():
-
-     output_dir = tempfile.TemporaryDirectory()
-
-     return output_dir
+     return tempfile.TemporaryDirectory()
