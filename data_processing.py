@@ -1,6 +1,4 @@
-# -*- coding: ansi -*-
-
-# Importando bibliotecas necess·rias
+# Importando bibliotecas necess√°rias
 import os
 import io
 from io import BytesIO
@@ -21,10 +19,10 @@ def load_data(content_file=None):
         return content
 
 def zip_output_files(output_folder):
-    # Cria um objeto BytesIO para armazenar o arquivo ZIP em memÛria
+    # Cria um objeto BytesIO para armazenar o arquivo ZIP em mem√≥ria
     zip_buffer = BytesIO()
     
-    # Cria o arquivo ZIP em memÛria
+    # Cria o arquivo ZIP em mem√≥ria
     with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
         for foldername, subfolders, filenames in os.walk(output_folder):
             for filename in filenames:
@@ -32,7 +30,7 @@ def zip_output_files(output_folder):
                 arcname = os.path.relpath(file_path, output_folder)
                 zip_file.write(file_path, arcname)
     
-    # Move o ponteiro de volta ao inÌcio do buffer
+    # Move o ponteiro de volta ao in√≠cio do buffer
     zip_buffer.seek(0)
     
     return zip_buffer
@@ -41,5 +39,5 @@ def baixar_modelo(df, arquivo):
     buffer = BytesIO()
     with pd.ExcelWriter(buffer, engine="openpyxl") as writer:
         df.to_excel(writer, index=False, sheet_name=arquivo)
-    buffer.seek(0)  # Volte ao inÌcio do buffer
+    buffer.seek(0)  # Volte ao in√≠cio do buffer
     return st.download_button(label="Baixar Modelo de Input", data=buffer, file_name=f"{arquivo}.xlsx")
