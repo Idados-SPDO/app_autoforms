@@ -27,7 +27,7 @@ def page_gera_forms():
         ampli.form_ampliacao(content)
 
         # Chama a função para compactar os arquivos e obter os dados ZIP
-        pasta_arquivo = os.path.join(os.getcwd(), outputdir)
+        pasta_arquivo = os.path.join(os.getcwd(), dp.outputdir())
         zip_data = dp.zip_output_files(pasta_arquivo)
     
         # Disponibiliza o arquivo ZIP para download
