@@ -1,6 +1,6 @@
 import streamlit as st
 import ui as ui
-import data_processing 
+import data_processing as dp 
 import pandas as pd
 import numpy as np
 import re
@@ -185,9 +185,8 @@ def form_abertura(content):
                 # Salvando o Workbook
                 data = datetime.today().strftime("%d%m%Y")
 
-                # Cria um diretório temporário
-                with tempfile.TemporaryDirectory() as output_dir:
-                    # Caminho do arquivo temporário dentro do diretório temporário
-                    wb_abertura.save(f"{output_dir}/{data}_{solicitante} - Solicitação de Abertura Novos Informantes ({uf_escritorio}) - {job}.xlsx")
+                aux_dir = dp.output_dir()
+
+                wb_abertura.save(f"{aux_dir}/{data}_{solicitante} - Solicitação de Abertura Novos Informantes ({uf_escritorio}) - {job}.xlsx")
 
     return st.write("Aberturas finalizadas!")

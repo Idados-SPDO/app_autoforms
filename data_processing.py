@@ -42,3 +42,9 @@ def baixar_modelo(df, arquivo):
         df.to_excel(writer, index=False, sheet_name=arquivo)
     buffer.seek(0)  # Volte ao início do buffer
     return st.download_button(label="Baixar Modelo de Input", data=buffer, file_name=f"{arquivo}.xlsx")
+
+def temp_paste():
+
+     output_dir = tempfile.TemporaryDirectory()
+
+     return output_dir
