@@ -13,7 +13,7 @@ from openpyxl import load_workbook
 import os
 import tempfile
 
-def form_abertura(content):
+def form_abertura(content, temp_dir):
     df_abertura = content
 
     # Arrumar nomes das colunas
@@ -185,8 +185,6 @@ def form_abertura(content):
                 # Salvando o Workbook
                 data = datetime.today().strftime("%d%m%Y")
 
-                aux_dir = dp.temp_paste()
-
-                wb_abertura.save(f"{aux_dir}/{data}_{solicitante} - Solicitação de Abertura Novos Informantes ({uf_escritorio}) - {job}.xlsx")
+                wb_abertura.save(f"{temp_dir}/{data}_{solicitante} - Solicitação de Abertura Novos Informantes ({uf_escritorio}) - {job}.xlsx")
 
     return st.write("Aberturas finalizadas!")

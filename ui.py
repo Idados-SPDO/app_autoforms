@@ -23,17 +23,17 @@ def page_gera_forms():
     st.markdown('---')
     if st.button('Gerar formulários'):
         content = dp.load_data(st.session_state.content_file)
-        abert.form_abertura(content)
-        ampli.form_ampliacao(content)
+        with tempfile.TemporaryDirectory() as temp_dir:
+            abert.form_abertura(content, temp_dir)
+            ampli.form_ampliacao(content, temp_dir)
 
-        # Chama a função para compactar os arquivos e obter os dados ZIP
-        pasta_arquivo = os.path.join(os.getcwd(), dp.outputdir())
-        zip_data = dp.zip_output_files(pasta_arquivo)
+            # Chama a função para compactar os arquivos e obter os dados ZIP
+            zip_data = dp.zip_output_files(temp_dir)
     
-        # Disponibiliza o arquivo ZIP para download
-        st.download_button(
-            label="Exportar arquivo",
-            data=zip_data,
-            file_name='Abertura_Ampliacao.zip',
-            mime='application/zip'
-        )
+            # Disponibiliza o arquivo ZIP para download
+            st.download_button(
+                label="Exportar arquivo",
+                data=zip_data,
+                file_name='Abertura_Ampliacao.zip',
+                mime='application/zip'
+            )

@@ -13,7 +13,7 @@ from openpyxl import load_workbook
 import os
 import tempfile
 
-def form_ampliacao(content):
+def form_ampliacao(content, temp_dir):
     df_ampliacao = content
 
     # Arrumar nomes das colunas
@@ -183,8 +183,6 @@ def form_ampliacao(content):
                 # Salvando o Workbook
                 data = datetime.today().strftime("%d%m%Y")
 
-                aux_dir = dp.temp_paste()
-
-                wb_ampliacao.save(f"{aux_dir}/Ampliacao BP {informante} - {job} - {coletor}.xlsx")
+                wb_ampliacao.save(f"{temp_dir}/Ampliacao BP {informante} - {job} - {coletor}.xlsx")
 
     return st.write("Ampliações finalizadas!")
