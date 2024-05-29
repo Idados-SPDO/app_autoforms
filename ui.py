@@ -1,6 +1,4 @@
-# -*- coding: ansi -*-
-
-# Importando bibliotecas necess·rias
+# Importando bibliotecas necess√°rias
 import os
 import pandas as pd
 import streamlit as st
@@ -8,7 +6,7 @@ from io import BytesIO
 import data_processing as dp
 
 def page_gera_forms():
-    st.title("App para automatizaÁ„o de formul·rios de abertura e ampliaÁ„o")
+    st.title("App para automatiza√ß√£o de formul√°rios de abertura e amplia√ß√£o")
 
     st.write("Os dados de entrada para o app devem ser preenchidos de acordo com o arquivo abaixo.")
     modelo = pd.read_excel('TEMPLATE.xlsx')
@@ -19,12 +17,12 @@ def page_gera_forms():
     st.file_uploader("a", type="xlsx", key="content_file", label_visibility="hidden")
 
     st.markdown('---')
-    if st.button('Gerar formul·rios'):
+    if st.button('Gerar formul√°rios'):
         content = dp.load_data(st.session_state.content_file)
         exec(open('scr/code/01_forms_abertura.py').read())
         exec(open('scr/code/02_forms_ampliacao.py').read())
 
-        # Chama a funÁ„o para compactar os arquivos e obter os dados ZIP
+        # Chama a fun√ß√£o para compactar os arquivos e obter os dados ZIP
         pasta_arquivo = os.path.join(os.getcwd(), "output")
         zip_data = dp.zip_output_files(pasta_arquivo)
     
