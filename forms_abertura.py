@@ -17,7 +17,7 @@ def form_abertura(content, temp_dir):
     df_abertura = content
 
     # Arrumar nomes das colunas
-    df_abertura.columns = df_abertura.columns.str.strip().str.lower().str.replace(' ', '_')
+    df_abertura.columns = df_abertura.columns.str.strip().str.lower().str.replace(' ', '_').str.replace('\n', '')
 
     # Padronizando a escrita da coluna 'abertura/ampliação'
     df_abertura['abertura_/_ampliação'] = df_abertura['abertura_/_ampliação'].str.upper()
