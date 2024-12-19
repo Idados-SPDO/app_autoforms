@@ -18,7 +18,7 @@ def form_abertura(content, temp_dir):
 
     # Arrumar nomes das colunas
     df_abertura.columns = df_abertura.columns.str.strip().str.lower().str.replace(' ', '_').str.replace('\n', '')
-
+    
     # Padronizando a escrita da coluna 'abertura/ampliação'
     df_abertura['abertura_/_ampliação'] = df_abertura['abertura_/_ampliação'].str.upper()
 
@@ -70,7 +70,7 @@ def form_abertura(content, temp_dir):
                         # Separando os contatos
                         for contato in meio_contato_aux:
                             # Verificando se é um telefone
-                            if re.match(r"\(\d{2}\)\s?\d{4,5}-?\d{4}", contato):
+                            if re.match(r"\(\d{2}\)\s?\d{4,5}-?\d{4}|^0800", contato):
                                 telefone_temp.append(contato)
                             # Verificando se é um email
                             elif "@" in contato:
